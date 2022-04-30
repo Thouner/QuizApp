@@ -37,3 +37,7 @@ body {
 .transi-75 {
     transition: 75ms;
 }
+
+.navbar-brand img {
+    object-fit: contain;
+}
