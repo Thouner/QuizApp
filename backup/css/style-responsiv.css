@@ -1,0 +1,10 @@
+@media screen and (max-width: 768px) {
+    .around-container {
+        height: calc(100vh - 720px);
+    }
+    .question-container {
+        height: 650px;
+    }
+}
+
+@media screen and (max-width: 650px) {}

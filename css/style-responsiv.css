@@ -1,3 +1,35 @@
-@media screen and (max-width: 1024px) {}
+@media screen and (max-width: 768px) {
+    .around-container {
+        height: calc(100vh - 770px);
+    }
+    .question-container {
+        height: 700px;
+    }
+    .mycard-body {
+        height: 115px;
+    }
+}
 
-@media screen and (max-width: 650px) {}
+@media screen and (max-width: 500px) {
+    .question-box {
+        font-size: 1em;
+    }
+    .mycard-body h5 {
+        font-size: 0.8em;
+    }
+    .mycard-body p {
+        font-size: 1em;
+    }
+    .col {
+        margin-top: 10px !important;
+    }
+    .mycard-body {
+        height: 100px;
+    }
+    .around-container {
+        display: none;
+    }
+    .question-container {
+        height: calc(100vh - 70px);
+    }
+}
