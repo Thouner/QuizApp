@@ -90,23 +90,35 @@ let questions = [{
     }
 ];
 
+let backgroundcount = 0;
+let quizcount = 0;
+let correntChooseAnswer = 0;
+let fithyfithy = true;
+let google = true;
 
-function render() {
-    document.getElementById('navbarIdContainer').innerHTML = `
-    <nav class="navbar navbar-light b-color-blue nav-maincontainer">
-        <div class="nav-container widthbg-50">
-            <a class="navbar-brand" href="#">
-                <div><img src="icon/question.png" alt="" width="30" height="24" class="d-inline-block align-text-top">QuizApp</div>
-            </a>
-        </div>
-        <div class="countquiz">5 / 10</div>
-    </nav>
-   `;
+
+function headerRender() {
+    let countbackground = 'widthbg-' + backgroundcount * 10;
+    document.getElementById('navbarIdContainer').innerHTML = /* html */ `
+        <nav class="navbar navbar-light b-color-blue nav-maincontainer">
+            <div class="nav-container ${countbackground}">
+                <a onclick="beginnRender()" class="navbar-brand" href="#">
+                    <div><img src="icon/question.png" alt="" width="30" height="24" class="d-inline-block align-text-top">QuizApp</div>
+                </a>
+            </div>
+            <div id="quizCounter" class="countquiz">${backgroundcount} / 10</div>
+        </nav>
+    `;
+    if (backgroundcount === 0) {
+        document.getElementById('quizCounter').classList.add('d-none')
+    } else {
+        document.getElementById('quizCounter').classList.remove('d-none')
+    }
 }
 
 
 function earthRender() {
-    document.getElementById('earthIdContainer').innerHTML = `
+    document.getElementById('earthIdContainer').innerHTML = /* html */ `
     <div class="around-container">
         <section>
             <div class="earth"></div>
@@ -142,51 +154,81 @@ function earthRender() {
     `;
 }
 
-let quizcount = 0;
 
-function questionrender() {
+function beginnRender() {
+    backgroundcount = 0;
+    quizcount = 0;
+    document.getElementById('questionIdContainer').innerHTML = /* html */ `
+    <div class="question-container d-flex j-center-a-center">
+        <div class="card beginn-card" style="width: 18rem;">
+            <img src="icon/question.png" class="card-img-top" alt="...">
+            <div class="card-body beginn-container">
+                <h5 class="card-title">Wollen wir </h5>
+                <button onclick="startGame()" href="#" class="btn btn-primary">Beginnen?</button>
+            </div>
+        </div>
+    </div>
+`;
+    headerRender();
+}
 
-    document.getElementById('questionIdContainer').innerHTML = `
+
+function startGame() {
+    backgroundcount = 1;
+    correntChooseAnswer = 0;
+    questionRender();
+    headerRender();
+}
+
+
+function questionRender() {
+    document.getElementById('questionIdContainer').innerHTML = /* html */ `
     <div class="d-flex j-center">
         <div class="mainquestion-container">
             <div class="question-container">
             <div class="card question-card">
                 <div class="card-body question-box p-relativ">
                     <span>${questions[quizcount]['question']}</span>
-                    <img onclick="nextQuestion()" class="arrow" src="icon/arrow-right.png" alt="">
+                    <div class="arrow">
+                        <img  onclick="openJoker()"  src="icon/arrow down.png" alt="">
+                        <div class="jokercontainer">
+                            <button id="jokerId1" class="d-none" type="button" onclick="getValue()"><img src="icon/google.png" alt="..."></button>
+                            <button id="jokerId2" class="d-none" type="button" onclick="get5050()"><b>50:50</b></button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 g-4 ">
-                <div class="col">
-                    <div class="mycard">
-                        <div class="mycard-body">
-                            <h5 class="card-title">Antwort A</h5>
-                            <p class="card-text">${questions[quizcount]['answer1']}</p>
+                <div id="colA" class="col ">
+                    <div class="mycard a-answer">
+                        <div id="answerBox1" onclick="chooseAnswer(1)" class="mycard-body border-outset-blue ">
+                            <h5 id="hId1" class="card-title">Antwort A</h5>
+                            <p id="pId1" class="card-text">${questions[quizcount]['answer1']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="colB" class="col ">
+                    <div class="mycard b-answer">
+                        <div id="answerBox2" onclick="chooseAnswer(2)" class="mycard-body border-outset-blue ">
+                            <h5 id="hId2" class="card-title">Antwort B</h5>
+                            <p id="pId2" class="card-text">${questions[quizcount]['answer2']}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="mycard">
-                        <div class="mycard-body">
-                            <h5 class="card-title">Antwort B</h5>
-                            <p class="card-text">${questions[quizcount]['answer2']}</p>
+                    <div class="mycard c-answer">
+                        <div id="answerBox3" onclick="chooseAnswer(3)" class="mycard-body border-outset-blue">
+                            <h5 id="hId3" class="card-title">Antwort C</h5>
+                            <p id="pId3" class="card-text">${questions[quizcount]['answer3']}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="mycard">
-                        <div class="mycard-body">
-                            <h5 class="card-title">Antwort C</h5>
-                            <p class="card-text">${questions[quizcount]['answer3']}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="mycard">
-                        <div class="mycard-body">
-                            <h5 class="card-title">Antwort D</h5>
-                            <p class="card-text">${questions[quizcount]['answer4']}</p>
+                    <div class="mycard d-answer">
+                        <div id="answerBox4" onclick="chooseAnswer(4)" class="mycard-body border-outset-blue">
+                            <h5 id="hId4" class="card-title">Antwort D</h5>
+                            <p id="pId4" class="card-text">${questions[quizcount]['answer4']}</p>
                         </div>
                     </div>
                 </div>
@@ -199,5 +241,85 @@ function questionrender() {
 
 function nextQuestion() {
     quizcount = quizcount + 1;
-    questionrender();
+    backgroundcount = backgroundcount + 1;
+    if (quizcount === 10) {
+        endOfGame();
+    } else {
+        questionRender();
+        headerRender();
+    }
+}
+
+
+function chooseAnswer(number) {
+    let answerid = 'answerBox' + number;
+    let correntAnswer = 'answerBox' + questions[quizcount]['rightAnswer'];
+    document.getElementById(answerid).classList.remove('border-outset-blue');
+    if (questions[quizcount]['rightAnswer'] == number) {
+        document.getElementById(answerid).classList.add('border-outset-green');
+        correntChooseAnswer = correntChooseAnswer + 1;
+    } else {
+        document.getElementById(answerid).classList.add('border-outset-red');
+    }
+    document.getElementById(correntAnswer).classList.add('b-color-green');
+    document.getElementById(correntAnswer).classList.add('color-white');
+    document.getElementById(correntAnswer).classList.add('textshadowblack');
+    setTimeout(nextQuestion, 1500);
+}
+
+
+function endOfGame() {
+    document.getElementById('questionIdContainer').innerHTML = /* html */ `
+    <div class="question-container d-flex j-center-a-center">
+            <div class="card beginn-card" style="width: 18rem;">
+                <img src="icon/question.png" class="card-img-top" alt="...">
+                <div class="card-body beginn-container">
+                    <h5 class="card-title">Du hast ${correntChooseAnswer} Richtige Antworten</h5>
+                    <button onclick="startGame()" href="#" class="btn btn-primary">Nochmal?</button>
+                </div>
+            </div>
+        </div>
+    `;
+    quizcount = 0;
+}
+
+
+function openJoker() {
+    document.getElementById('jokerId1').classList.toggle('d-none');
+    document.getElementById('jokerId2').classList.toggle('d-none');
+    document.getElementById('colA').classList.toggle('zindex-1');
+    document.getElementById('colB').classList.toggle('zindex-1');
+}
+
+
+function getValue() {
+    if (google === true) {
+        let myWindow;
+        myWindow = window.open("http://www.google.com?query=" + questions[quizcount]['question'], "_blank");
+        closeJoker();
+    } else { alert('schon benutzt!') }
+    google = false;
+}
+
+
+
+function get5050() {
+    if (fithyfithy === true) {
+        let number1 = questions[quizcount]['wrongAnswer'][0] + '';
+        let wrong1 = 'pId' + number1;
+        let number2 = questions[quizcount]['wrongAnswer'][1] + '';
+        let wrong2 = 'pId' + number2;
+        document.getElementById(wrong1).classList.add('d-none');
+        document.getElementById(wrong2).classList.add('d-none');
+        closeJoker();
+    } else { alert('schon benutzt!') }
+    fithyfithy = false;
+}
+
+
+function closeJoker() {
+    document.getElementById('colA').classList.remove('zindex-1');
+    document.getElementById('colB').classList.remove('zindex-1');
+    document.getElementById('jokerId1').classList.add('d-none');
+    document.getElementById('jokerId2').classList.add('d-none');
 }
