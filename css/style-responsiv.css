@@ -23,6 +23,9 @@
     .col {
         margin-top: 10px !important;
     }
+    .row {
+        height: 70%;
+    }
     .mycard-body {
         height: 100px;
     }

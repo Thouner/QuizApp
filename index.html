@@ -18,91 +18,10 @@
     <script src="js/script.js"></script>
 </head>
 
-<body onload="render()">
-    <nav class="navbar navbar-light b-color-blue nav-maincontainer">
-        <div class="nav-container widthbg-50">
-            <a class="navbar-brand" href="#">
-                <div><img src="icon/question.png" alt="" width="30" height="24" class="d-inline-block align-text-top">QuizApp</div>
-            </a>
-        </div>
-        <div class="countquiz">5 / 10</div>
-    </nav>
-
-    <div class="around-container">
-        <section>
-            <div class="earth"></div>
-            <div class="circle">
-                <span style="--i:1;">Q</span>
-                <span style="--i:2;">u</span>
-                <span class="iletter" style="--i:3;">i</span>
-                <span style="--i:4;">z</span>
-                <span style="--i:5;">A</span>
-                <span style="--i:6;">p</span>
-                <span style="--i:7;">p</span>
-                <span style="--i:8;">-</span>
-                <span style="--i:9;">A</span>
-                <span style="--i:10;">r</span>
-                <span style="--i:11;">o</span>
-                <span style="--i:12;">u</span>
-                <span style="--i:13;">n</span>
-                <span style="--i:14;">d</span>
-                <span style="--i:15;">-</span>
-                <span style="--i:16;">T</span>
-                <span style="--i:17;">h</span>
-                <span style="--i:18;">e</span>
-                <span style="--i:19;">-</span>
-                <span style="--i:20;">E</span>
-                <span style="--i:21;">a</span>
-                <span style="--i:22;">r</span>
-                <span style="--i:23;">t</span>
-                <span style="--i:24;">h</span>
-                <span style="--i:25;">-</span>
-            </div>
-        </section>
-    </div>
-
-    <div class="question-container">
-        <div class="card question-card">
-            <div class="card-body question-box">
-                Welcher Künstler hat die Decke der Sixtinischen Kapelle in Rom gemalt?
-            </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-md-2 g-4 ">
-            <div class="col">
-                <div class="mycard">
-                    <div class="mycard-body">
-                        <h5 class="card-title">Antwort A</h5>
-                        <p class="card-text">Apollo 11 landete auf dem Mond</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mycard">
-                    <div class="mycard-body">
-                        <h5 class="card-title">Antwort B</h5>
-                        <p class="card-text">Willy Brandt wird Bundeskanzler</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mycard">
-                    <div class="mycard-body">
-                        <h5 class="card-title">Antwort C</h5>
-                        <p class="card-text">Richard Nixon wird Präsident der USA</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mycard">
-                    <div class="mycard-body">
-                        <h5 class="card-title">Antwort D</h5>
-                        <p class="card-text">Apollo 12 landet auf dem Mond</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<body onload="renderheader(), earthRender(), questionrender()">
+    <div id="navbarIdContainer"> </div>
+    <div id="earthIdContainer"></div>
+    <div id="questionIdContainer"></div>
 </body>
 
 </html>
