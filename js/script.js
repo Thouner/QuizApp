@@ -97,6 +97,7 @@ let fithyfithy = true;
 let google = true;
 let rightAudio = new Audio('sound/rightsound.mp3');
 let wrondAudio = new Audio('sound/wrongsound.mp3');
+let cklickPossible = true;
 
 
 function headerRender() {
@@ -194,6 +195,7 @@ function startGame() {
 
 
 function questionRender() {
+    setTimeout(resetCklickPossible(), 2000);
     document.getElementById('questionIdContainer').innerHTML = /* html */ `
     <div class="d-flex j-center">
         <div class="mainquestion-container">
@@ -204,7 +206,7 @@ function questionRender() {
                     <div class="arrow">
                         <img  onclick="openJoker()"  src="icon/arrow down.png" alt="">
                         <div class="jokercontainer">
-                            <button id="jokerId1" class="d-none" type="button" onclick="getValue()"><img src="icon/google.png" alt="..."></button>
+                            <button id="jokerId1" class="d-none" type="button" onclick="getGoogle()"><img src="icon/google.png" alt="..."></button>
                             <button id="jokerId2" class="d-none" type="button" onclick="get5050()"><b>50:50</b></button>
                         </div>
                     </div>
@@ -248,17 +250,26 @@ function questionRender() {
         </div>
     </div>
     `;
+    setTimeout(resetCklickPossible(), 2000);
+}
+
+
+function resetCklickPossible() {
+    cklickPossible = true;
 }
 
 
 function nextQuestion() {
-    quizcount = quizcount + 1;
-    backgroundcount = backgroundcount + 1;
-    if (quizcount === 10) {
-        endOfGame();
-    } else {
-        questionRender();
-        headerRender();
+    if (cklickPossible === true) {
+        cklickPossible = false;
+        quizcount = quizcount + 1;
+        backgroundcount = backgroundcount + 1;
+        if (quizcount >= questions.length) {
+            endOfGame();
+        } else {
+            questionRender();
+            headerRender();
+        }
     }
 }
 
@@ -300,18 +311,23 @@ function wrongAnswer(answerid) {
 
 
 function endOfGame() {
-    document.getElementById('questionIdContainer').innerHTML = /* html */ `
+    document.getElementById('questionIdContainer').innerHTML = endOfGameText();
+    quizcount = 0;
+}
+
+
+function endOfGameText() {
+    return /* html */ `
     <div class="question-container d-flex j-center-a-center">
-            <div class="card beginn-card" style="width: 18rem;">
-                <img src="icon/question.png" class="card-img-top" alt="...">
-                <div class="card-body beginn-container">
-                    <h5 class="card-title">Du hast ${correntChooseAnswer} Richtige Antworten</h5>
-                    <button onclick="startGame()" href="#" class="btn btn-primary">Nochmal?</button>
-                </div>
+        <div class="card beginn-card" style="width: 18rem;">
+            <img src="icon/question.png" class="card-img-top" alt="...">
+            <div class="card-body beginn-container">
+                <h5 class="card-title">Du hast ${correntChooseAnswer} Richtige Antworten</h5>
+                <button onclick="startGame()" href="#" class="btn btn-primary">Nochmal?</button>
             </div>
         </div>
+    </div>
     `;
-    quizcount = 0;
 }
 
 
@@ -323,7 +339,7 @@ function openJoker() {
 }
 
 
-function getValue() {
+function getGoogle() {
     if (google === true) {
         let myWindow;
         myWindow = window.open("http://www.google.com?query=" + questions[quizcount]['question'], "_blank");

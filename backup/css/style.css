@@ -274,6 +274,10 @@ section {
     box-shadow: 0 0 25px #4069ff;
 }
 
+.mycard-body:hover {
+    transform: scale(1.05);
+}
+
 .border-outset-blue {
     border: 11px outset #0000FF;
 }
