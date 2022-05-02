@@ -195,7 +195,7 @@ function startGame() {
 
 
 function questionRender() {
-    setTimeout(resetCklickPossible(), 2000);
+    setTimeout(resetCklickPossible(), 4000);
     document.getElementById('questionIdContainer').innerHTML = /* html */ `
     <div class="d-flex j-center">
         <div class="mainquestion-container">
@@ -250,7 +250,6 @@ function questionRender() {
         </div>
     </div>
     `;
-    setTimeout(resetCklickPossible(), 2000);
 }
 
 
@@ -260,30 +259,30 @@ function resetCklickPossible() {
 
 
 function nextQuestion() {
-    if (cklickPossible === true) {
-        cklickPossible = false;
-        quizcount = quizcount + 1;
-        backgroundcount = backgroundcount + 1;
-        if (quizcount >= questions.length) {
-            endOfGame();
-        } else {
-            questionRender();
-            headerRender();
-        }
+    quizcount = quizcount + 1;
+    backgroundcount = backgroundcount + 1;
+    if (quizcount >= questions.length) {
+        endOfGame();
+    } else {
+        questionRender();
+        headerRender();
     }
 }
 
 
 function chooseAnswer(number) {
-    let answerid = 'answerBox' + number;
-    let correntAnswer = 'answerBox' + questions[quizcount]['rightAnswer'];
-    document.getElementById(answerid).classList.remove('border-outset-blue');
-    if (questions[quizcount]['rightAnswer'] == number) {
-        rightAnswer(answerid);
-    } else {
-        wrongAnswer(answerid);
+    if (cklickPossible === true) {
+        cklickPossible = false;
+        let answerid = 'answerBox' + number;
+        let correntAnswer = 'answerBox' + questions[quizcount]['rightAnswer'];
+        document.getElementById(answerid).classList.remove('border-outset-blue');
+        if (questions[quizcount]['rightAnswer'] == number) {
+            rightAnswer(answerid);
+        } else {
+            wrongAnswer(answerid);
+        }
+        selectRightAnswer(correntAnswer);
     }
-    selectRightAnswer(correntAnswer);
 }
 
 
