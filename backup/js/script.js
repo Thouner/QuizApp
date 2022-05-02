@@ -95,25 +95,32 @@ let quizcount = 0;
 let correntChooseAnswer = 0;
 let fithyfithy = true;
 let google = true;
+let rightAudio = new Audio('sound/rightsound.mp3');
+let wrondAudio = new Audio('sound/wrongsound.mp3');
 
 
 function headerRender() {
     let countbackground = 'widthbg-' + backgroundcount * 10;
-    document.getElementById('navbarIdContainer').innerHTML = /* html */ `
-        <nav class="navbar navbar-light b-color-blue nav-maincontainer">
-            <div class="nav-container ${countbackground}">
-                <a onclick="beginnRender()" class="navbar-brand" href="#">
-                    <div><img src="icon/question.png" alt="" width="30" height="24" class="d-inline-block align-text-top">QuizApp</div>
-                </a>
-            </div>
-            <div id="quizCounter" class="countquiz">${backgroundcount} / 10</div>
-        </nav>
-    `;
+    document.getElementById('navbarIdContainer').innerHTML = headerRenderText(countbackground);
     if (backgroundcount === 0) {
         document.getElementById('quizCounter').classList.add('d-none')
     } else {
         document.getElementById('quizCounter').classList.remove('d-none')
     }
+}
+
+
+function headerRenderText(countbackground) {
+    return /* html */ `
+    <nav class="navbar navbar-light b-color-blue nav-maincontainer">
+        <div class="nav-container ${countbackground}">
+            <a onclick="beginnRender()" class="navbar-brand" href="#">
+                <div><img src="icon/question.png" alt="" width="30" height="24" class="d-inline-block align-text-top">QuizApp</div>
+            </a>
+        </div>
+        <div id="quizCounter" class="countquiz">${backgroundcount} / 10</div>
+    </nav>
+`;
 }
 
 
@@ -158,7 +165,13 @@ function earthRender() {
 function beginnRender() {
     backgroundcount = 0;
     quizcount = 0;
-    document.getElementById('questionIdContainer').innerHTML = /* html */ `
+    document.getElementById('questionIdContainer').innerHTML = beginnRenderText()
+    headerRender();
+}
+
+
+function beginnRenderText() {
+    return /* html */ `
     <div class="question-container d-flex j-center-a-center">
         <div class="card beginn-card" style="width: 18rem;">
             <img src="icon/question.png" class="card-img-top" alt="...">
@@ -169,7 +182,6 @@ function beginnRender() {
         </div>
     </div>
 `;
-    headerRender();
 }
 
 
@@ -256,15 +268,34 @@ function chooseAnswer(number) {
     let correntAnswer = 'answerBox' + questions[quizcount]['rightAnswer'];
     document.getElementById(answerid).classList.remove('border-outset-blue');
     if (questions[quizcount]['rightAnswer'] == number) {
-        document.getElementById(answerid).classList.add('border-outset-green');
-        correntChooseAnswer = correntChooseAnswer + 1;
+        rightAnswer(answerid);
     } else {
-        document.getElementById(answerid).classList.add('border-outset-red');
+        wrongAnswer(answerid);
     }
+    selectRightAnswer(correntAnswer);
+}
+
+
+function selectRightAnswer(correntAnswer) {
     document.getElementById(correntAnswer).classList.add('b-color-green');
     document.getElementById(correntAnswer).classList.add('color-white');
     document.getElementById(correntAnswer).classList.add('textshadowblack');
     setTimeout(nextQuestion, 1500);
+}
+
+
+function rightAnswer(answerid) {
+    document.getElementById(answerid).classList.add('border-outset-green');
+    correntChooseAnswer = correntChooseAnswer + 1;
+    rightAudio.volume = 0.3;
+    rightAudio.play();
+}
+
+
+function wrongAnswer(answerid) {
+    document.getElementById(answerid).classList.add('border-outset-red');
+    wrondAudio.volume = 0.1;
+    wrondAudio.play();
 }
 
 
@@ -300,7 +331,6 @@ function getValue() {
     } else { alert('schon benutzt!') }
     google = false;
 }
-
 
 
 function get5050() {

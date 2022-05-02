@@ -212,7 +212,7 @@ function questionRender() {
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 g-4 ">
-                <div id="colA" class="col ">
+                <div id="colA" class="col cursor-pointer">
                     <div class="mycard a-answer">
                         <div id="answerBox1" onclick="chooseAnswer(1)" class="mycard-body border-outset-blue ">
                             <h5 id="hId1" class="card-title">Antwort A</h5>
@@ -220,7 +220,7 @@ function questionRender() {
                         </div>
                     </div>
                 </div>
-                <div id="colB" class="col ">
+                <div id="colB" class="col cursor-pointer">
                     <div class="mycard b-answer">
                         <div id="answerBox2" onclick="chooseAnswer(2)" class="mycard-body border-outset-blue ">
                             <h5 id="hId2" class="card-title">Antwort B</h5>
@@ -228,7 +228,7 @@ function questionRender() {
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col cursor-pointer">
                     <div class="mycard c-answer">
                         <div id="answerBox3" onclick="chooseAnswer(3)" class="mycard-body border-outset-blue">
                             <h5 id="hId3" class="card-title">Antwort C</h5>
@@ -236,7 +236,7 @@ function questionRender() {
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col cursor-pointer">
                     <div class="mycard d-answer">
                         <div id="answerBox4" onclick="chooseAnswer(4)" class="mycard-body border-outset-blue">
                             <h5 id="hId4" class="card-title">Antwort D</h5>
@@ -287,14 +287,14 @@ function selectRightAnswer(correntAnswer) {
 function rightAnswer(answerid) {
     document.getElementById(answerid).classList.add('border-outset-green');
     correntChooseAnswer = correntChooseAnswer + 1;
-    rightAudio.volume = 0.3;
+    rightAudio.volume = 0.2;
     rightAudio.play();
 }
 
 
 function wrongAnswer(answerid) {
     document.getElementById(answerid).classList.add('border-outset-red');
-    wrondAudio.volume = 0.1;
+    wrondAudio.volume = 0.05;
     wrondAudio.play();
 }
 
